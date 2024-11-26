@@ -5,4 +5,6 @@ const app = express();
 
 app.use('/', router); //.use : cada que hay una petición a la URL principal se va a ejecutar la función router y va a entrar a todos los métodos que tengamos, mapeando cada una de las URL
 
+
+
 export default app;
