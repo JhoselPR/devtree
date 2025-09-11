@@ -5,12 +5,6 @@ import { hashPassword, comparePassword } from "../utils/auth";
 import { validationResult } from "express-validator";
 
 export const createAccount = async (req: Request, res: Response) => {
-    // Manejar errores de validación
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
     const { email, password } = req.body;
 
     const userExists = await User.findOne({ email });
@@ -38,12 +32,6 @@ export const createAccount = async (req: Request, res: Response) => {
 }
 
 export const login = async (req: Request, res: Response) => {
-    // Manejar errores de validación
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
     // Revisar si el usuario existe
     const { email, password } = req.body;
 
