@@ -1,11 +1,17 @@
 //const express = require('express'); //Common JS
 import express from 'express'; //ESM sintaxis
+import cors from 'cors';
 import 'dotenv/config'; // Cargar variables de entorno
 import router from './router';
 import { connectDB } from './config/db';
+import { corsConfig } from './config/cors';
+
+connectDB(); // Conexión a la base de datos
 
 const app = express();
-connectDB(); // Conexión a la base de datos
+
+// Cors
+app.use(cors(corsConfig));
 
 app.use(express.json()); // Leer datos de formularios
 
