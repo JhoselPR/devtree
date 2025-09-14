@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import slug from "slug";
 import User from "../models/User";
 import { hashPassword, comparePassword } from "../utils/auth";
-import { validationResult } from "express-validator";
 import { generateJWT } from "../utils/jwt";
 
 export const createAccount = async (req: Request, res: Response) => {
@@ -49,7 +48,11 @@ export const login = async (req: Request, res: Response) => {
         return res.status(401).json({ error: error.message });
     }
 
-    const token = generateJWT({id: user._id})
+    const token = generateJWT({ id: user._id })
 
     res.send(token);
+}
+
+export const getUser = async (req: Request, res: Response) => {
+ res.json(req.user);
 }
