@@ -65,7 +65,7 @@ export default function LoginView() {
           <input
             id="password"
             type="password"
-            placeholder="Password de Registro"
+            placeholder="Contraseña de registro"
             className="bg-slate-100 border-none p-3 rounded-lg placeholder-slate-400"
             {...register("password", {
               required: "La contraseña es obligatoria",
