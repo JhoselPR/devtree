@@ -8,6 +8,7 @@ import { corsConfig } from './config/cors';
 
 connectDB(); // Conexión a la base de datos
 
+//Instancia del servidor
 const app = express();
 
 // Cors

@@ -4,6 +4,7 @@ import { body } from 'express-validator';
 import { handleInputErrors } from './middleware/validation';
 import { authenticateToken } from './middleware/auth';
 
+// Instancia del router
 const router = Router();
 
 //* Routing
