@@ -1,7 +1,9 @@
 import { useForm } from "react-hook-form";
 import ErrorMessage from "../components/ErrorMessage";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import type { User, ProfileForm } from "../types";
+import { updateProfile } from "../api/DevTreeAPI";
+import { toast } from "sonner";
 
 export default function ProfileView() {
   // Obtener datos del usuario desde el caché de React Query
@@ -17,10 +19,23 @@ export default function ProfileView() {
       handle: data.handle,
       description: data.description,
     },
-  });
+  })
+
+  const updateProfileMutation = useMutation({
+    mutationFn: updateProfile,
+    onError: (error) => {
+      toast.error((error as Error).message);
+    },
+    onSuccess: (data) => {
+      toast.success(data);
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+    },
+  })
 
   const handleUserProfileForm = (formData: ProfileForm) => {
     console.log(formData);
+
+    updateProfileMutation.mutate(formData)
   };
 
   return (
@@ -67,7 +82,7 @@ export default function ProfileView() {
           name="handle"
           className="border-none bg-slate-100 rounded-lg p-2 file:border-0 file:rounded-lg file:px-4 file:py-2 file:text-sm file:font-semibold file:bg-slate-200 file:text-slate-600 hover:file:bg-cyan-300"
           accept="image/*"
-          onChange={() => {}}
+          onChange={() => { }}
         />
       </div>
 
