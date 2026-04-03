@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createAccount, getUser, login } from './handlers';
+import { createAccount, getUser, login, updateProfile } from './handlers';
 import { body } from 'express-validator';
 import { handleInputErrors } from './middleware/validation';
 import { authenticateToken } from './middleware/auth';
@@ -38,5 +38,18 @@ router.post('/auth/login',
 );
 
 router.get('/user', authenticateToken, getUser)
+router.patch('/user',
+    body('handle')
+        .notEmpty()
+        .withMessage('El nombre de usuario es obligatorio'),
+    body('description')
+        .notEmpty()
+        .withMessage('La descripción es obligatoria')
+        .isLength({ max: 200 })
+        .withMessage('La descripción no puede tener más de 200 caracteres'),
+    handleInputErrors,
+    authenticateToken,
+    updateProfile
+);
 
 export default router;
